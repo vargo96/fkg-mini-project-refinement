@@ -119,10 +119,8 @@ class FKGMiniProject:
                 refinements = self.operator.refine(c)
 
                 scores = [(c, self._f1(c, pos, neg)) for c in refinements]
-                best = max(scores, key=lambda r: r[1])
-                all_best = [x for x in scores if x[1] == best[1]]
-
-                best = min(all_best, key=lambda k: k[0].length)
+                # Find max in F1-Score, tiebreak on length
+                best = max(scores, key=lambda c: (c[1], -c[0].length))
 
                 if self.terminate_on_goal and best[1] == 1.0:
                     return best[0], best[1]
