@@ -18,8 +18,8 @@ def parse_args():
     parser.add_argument("--terminate_on_goal", action='store_true',
                         help='Stop when the goal (1.0 F1-Score) is found.')
     parser.add_argument("--develop_mode", action='store_true',
-                        help='Set develop mode: Split the given learning problems in train and \
-                              test and evaluate the algorithm.')
+                        help='Set develop mode: Run 10-Fold cross validation on the given \
+                              learning problems to evaluate the approach.')
     parser.add_argument("--output_file", type=str, default='result.ttl')
 
     return parser.parse_args()

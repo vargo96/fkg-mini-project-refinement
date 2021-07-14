@@ -23,7 +23,6 @@ class FKGMiniProject:
         self.kb.thing.owl.namespace = self.kb.onto.get_namespace("http://dl-learner.org/carcinogenesis#")
         return instances
 
-
     def cross_validation(self, lp, folds=10):
         """
         Perform k-fold cross-validation on the given learning problem
@@ -117,18 +116,15 @@ class FKGMiniProject:
         for _ in range(self.steps):
             temp = set()
             for c in concepts:
-                #print("###############")
-                #print(c.str)
                 refinements = self.operator.refine(c)
-                #for r in refinements:
-                #    print(r.str, self._f1(r, pos, neg), r.length)
+
                 scores = [(c, self._f1(c, pos, neg)) for c in refinements]
                 best = max(scores, key=lambda r: r[1])
                 all_best = [x for x in scores if x[1] == best[1]]
 
                 best = min(all_best, key=lambda k: k[0].length)
+
                 if self.terminate_on_goal and best[1] == 1.0:
-                    #print(best[1])
                     return best[0], best[1]
                 if best[1] > 0:
                     temp.add(best[0])

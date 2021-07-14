@@ -11,7 +11,7 @@
 As often done in node classification on knowledge graphs we use the positive and negative
 examples to learn concepts in description logics. This way the classifications should not only
 be accurate but also explainable by looking at the concept. Atleast for domain experts depending
-on the ontology. There are even approaches to verbalize description logics to natural language.
+on the ontology. There are also approaches to verbalize description logics to natural language.
 Accordingly, we use a refinement operator for the description logic EL (similar as in the last exercise)
 and combine this with a simple greedy approach that traverses the search space. EL only consists of top,
 atomic concepts, existential restrictions and intersections.
@@ -20,7 +20,7 @@ atomic concepts, existential restrictions and intersections.
 
 We tried some approaches to tackle our mini-project which include [classical machine learning on knowledge graph embeddings](https://github.com/vargo96/fkg-mini-project), classical machine learning over one hot classes and relations encoded individuals, refinement operators (current approach). We found out that refinement operators perform the best on `kg-mini-project-train_v2.ttl` and `kg-mini-project-grading.ttl`. 
 
-Our refinement approach consists of the four steps and these are as follows:
+Our refinement approach consists of the four parts and these are as follows:
 
 1. **Parse the input turtle file:**
     
@@ -34,23 +34,23 @@ Our refinement approach consists of the four steps and these are as follows:
 - **Atomic concepts** <img src="https://render.githubusercontent.com/render/math?math=C">: Refined to direct sub-concepts and <img src="https://render.githubusercontent.com/render/math?math=C \sqcap ">T 
 - **Existential restrictions**: Refined by refining the filler (one new refinement for each refinement of the filler)
 - **Intersection**: Refine the operands and add one new refinement for each refinement of the operands
-  Refinement steps are pretty similar to the ones in this paper: [Hybrid Learning of Ontology Classes](https://jens-lehmann.org/files/2007/hybrid_learning.pdf)
+
+  Refinement steps are pretty similar to the ones in this paper: [Hybrid Learning of Ontology Classes](https://jens-lehmann.org/files/2007/hybrid_learning.pdf) (Page 9)
 
 
 3. **Algorithm:**
 
     We start with the **Thing** concept and do one refinement step. For carcinogenesis this results in Atom, Bond, Compound, ... .
-    Afterwards we just follow a simple greedy strategy for a set number of steps (3 as default, since it was enough for the given learning problems). 
+    Afterwards we just follow a simple greedy strategy for a set number of iterations (3 as default, since it was enough for the given learning problems). 
 
-    In the first iteration we go through all the refinements of **Thing** and for each we do a refinement step and only keep the best refinement of the resulting set. E.g. we would take Atom do one refinement step and keep the best one, then we would do the same for Bond etc. Afterward, this process continues in the next iteration with the refinements that were found in the first step and so on.
+    In the first iteration we go through all the refinements of **Thing** and for each we do a refinement step and only keep the best refinement of the resulting set. E.g. we would take Atom and do one refinement step and keep the best one, then we would do the same for Bond etc. Afterward, this process continues in the next iteration with the refinements that were found in the first iteration and so on.
 
     Best here means which refinement has the highest F1-Score on the train set and the length of a concept is used as a tiebreaker.
 
 
 4. **Predict and write the result file:**
 
-   The remaining test individuals are then classified with the best concept we found during training of our algorithm (whether the concept en
-   tails an individual or not). 
+   The remaining test individuals are then classified with the best concept we found during training of our algorithm (whether the concept entails an individual or not). 
    We receive the predictions of all the individuals for each learning problem and the prediction results are written in a single turtle [result](result.ttl) file.
 
 
@@ -58,7 +58,7 @@ Our refinement approach consists of the four steps and these are as follows:
 Clone the repository:
 
 ```
-git clone https://github.com/vargo96/fkg-mini-project.git
+git clone https://github.com/vargo96/fkg-mini-project-refinement.git
 ```
 You might want to create a virtual environment:
 ```
@@ -84,7 +84,7 @@ Some additional usage information for the run script :
 
 ```
 usage: run.py [-h] [--ontology_path ONTOLOGY_PATH] [--lps_path LPS_PATH]
-              [--steps STEPS] [--develop_mode] [--test_ratio TEST_RATIO]
+              [--steps STEPS] [--terminate_on_goal] [--develop_mode]
               [--output_file OUTPUT_FILE]
 
 optional arguments:
@@ -93,9 +93,8 @@ optional arguments:
                         OWL ontology file.
   --lps_path LPS_PATH
   --steps STEPS         Amount of refinement steps of the algorithm.
-  --develop_mode        Set train mode: Split the given learning problems in
-                        train and test and evaluate the algorithm.
-  --test_ratio TEST_RATIO
-                        Ratio of the test split in develop mode.
+  --terminate_on_goal   Stop when the goal (1.0 F1-Score) is found.
+  --develop_mode        Set develop mode: Run 10-Fold cross validation on the
+                        given learning problems to evaluate the approach.
   --output_file OUTPUT_FILE
 ```

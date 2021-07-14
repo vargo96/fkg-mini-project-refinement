@@ -15,9 +15,6 @@ class ELRefinementOperator():
         Returns:
             Set of refinements
         """
-        # Ignore Zinc since owlready2/ontolearn seem to have a problem with it
-        #if concept.str.startswith("Zinc"):
-        #    return {concept}
 
         if concept == self.kb.thing:
             return self.refine_thing()
@@ -66,7 +63,7 @@ class ELRefinementOperator():
                 for ref in self.refine(concept.filler)}
 
     def refine_intersection(self, concept):
-        """Refine intersections by refininf each operand separately and
+        """Refine intersections by refining each operand separately and
            adding a refinement every time. 
         
         Returns:
