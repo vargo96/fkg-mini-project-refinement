@@ -1,12 +1,10 @@
-# FKG - Mini Project
-
 # Foundations of Knowledge Graphs Mini-Project (Group Name: The Pythonistas)
 
-## Group Members (IMT usernames in brackets)
+## Group Members
 
-1. Lukas Blübaum (lukasbl)
-2. Varun Nandkumar Golani (vngolani)
-3. Shivam Sharma (sshivam)
+1. Lukas Blübaum
+2. Varun Nandkumar Golani
+3. Shivam Sharma
 
 
 ## Motivation
@@ -20,22 +18,26 @@ atomic concepts, existential restrictions and intersections.
 
 ## Approach 
 
-Our approach consists of the four steps and these are as follows:
+We tried some approaches to tackle our mini-project which include [classical machine learning on knowledge graph embeddings](https://github.com/vargo96/fkg-mini-project), classical machine learning over one hot classes and relations encoded individuals, refinement operators (current approach). We found out that refinement operators perform the best on `kg-mini-project-train_v2.ttl` and `kg-mini-project-grading.ttl`. 
+
+Our refinement approach consists of the four steps and these are as follows:
 
 1. **Parse the input turtle file:**
     
     In this step, we parse the input turtle file (i.e. `kg-mini-project-train_v2.ttl` or `kg-mini-project-grading.ttl`) and the output contains the set of positive and negative individuals for all learning problems.
    
-2. **EL Refinement operator**
+
+2. **EL refinement operator:**
 
     Overview of the different refinement steps depending on the concept type:
 - **Thing T**: Refined to direct sub-concepts and for each object property <img src="https://render.githubusercontent.com/render/math?math=r"> in the knowledge base <img src="https://render.githubusercontent.com/render/math?math=\exists r.">T 
 - **Atomic concepts** <img src="https://render.githubusercontent.com/render/math?math=C">: Refined to direct sub-concepts and <img src="https://render.githubusercontent.com/render/math?math=C \sqcap ">T 
 - **Existential restrictions**: Refined by refining the filler (one new refinement for each refinement of the filler)
 - **Intersection**: Refine the operands and add one new refinement for each refinement of the operands
-  Refinement steps are pretty similar to the ones in this paper: https://jens-lehmann.org/files/2007/hybrid_learning.pdf
+  Refinement steps are pretty similar to the ones in this paper: [Hybrid Learning of Ontology Classes](https://jens-lehmann.org/files/2007/hybrid_learning.pdf)
 
-3. **Algorithm**
+
+3. **Algorithm:**
 
     We start with the **Thing** concept and do one refinement step. For carcinogenesis this results in Atom, Bond, Compound, ... .
     Afterwards we just follow a simple greedy strategy for a set number of steps (3 as default, since it was enough for the given learning problems). 
@@ -43,6 +45,7 @@ Our approach consists of the four steps and these are as follows:
     In the first iteration we go through all the refinements of **Thing** and for each we do a refinement step and only keep the best refinement of the resulting set. E.g. we would take Atom do one refinement step and keep the best one, then we would do the same for Bond etc. Afterward, this process continues in the next iteration with the refinements that were found in the first step and so on.
 
     Best here means which refinement has the highest F1-Score on the train set and the length of a concept is used as a tiebreaker.
+
 
 4. **Predict and write the result file:**
 
