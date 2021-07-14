@@ -30,10 +30,10 @@ Our refinement approach consists of the four parts and these are as follows:
 2. **EL refinement operator:**
 
     Overview of the different refinement steps depending on the concept type:
-- **Thing T**: Refined to direct sub-concepts and for each object property <img src="https://render.githubusercontent.com/render/math?math=r"> in the knowledge base <img src="https://render.githubusercontent.com/render/math?math=\exists r.">T 
-- **Atomic concepts** <img src="https://render.githubusercontent.com/render/math?math=C">: Refined to direct sub-concepts and <img src="https://render.githubusercontent.com/render/math?math=C \sqcap ">T 
-- **Existential restrictions**: Refined by refining the filler (one new refinement for each refinement of the filler)
-- **Intersection**: Refine the operands and add one new refinement for each refinement of the operands
+    - **Thing T**: Refined to direct sub-concepts and for each object property <img src="https://render.githubusercontent.com/render/math?math=r"> in the knowledge base <img src="https://render.githubusercontent.com/render/math?math=\exists r.">T 
+    - **Atomic concepts** <img src="https://render.githubusercontent.com/render/math?math=C">: Refined to direct sub-concepts and <img src="https://render.githubusercontent.com/render/math?math=C \sqcap ">T 
+    - **Existential restrictions**: Refined by refining the filler (one new refinement for each refinement of the filler)
+    - **Intersection**: Refine the operands and add one new refinement for each refinement of the operands
 
   Refinement steps are pretty similar to the ones in this paper: [Hybrid Learning of Ontology Classes](https://jens-lehmann.org/files/2007/hybrid_learning.pdf) (Page 9)
 
@@ -73,13 +73,15 @@ Then run:
 pip install -r requirements.txt
 ```
 
-## Reproduce result ttl file:
+## Reproduce result ttl file
 To reproduce the ```result.ttl``` with the predictions for the remaining individual for each learning problem run:
 ```
 python run.py
 ```
 
 ## Miscellaneous
+We observed that on the grading data the specific as well the general concepts both give F1-score of 1.0 but the predictions of the specific and the general concepts on the test individuals are very different. To control this behaviour, the flag `terminate_on_goal` can be set for obtaining more general concepts, by default it is set to false.
+
 Some additional usage information for the run script :
 
 ```
