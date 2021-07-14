@@ -24,13 +24,13 @@ Our approach consists of the four steps and these are as follows:
 
 1. **Parse the input turtle file:**
     
-    In this step, we parse the input turtle file (i.e. kg-mini-project-train_v2.ttl or kg-mini-project-grading.ttl) and the output contains the set of positive and negative individuals for all learning problems.
+    In this step, we parse the input turtle file (i.e. `kg-mini-project-train_v2.ttl` or `kg-mini-project-grading.ttl`) and the output contains the set of positive and negative individuals for all learning problems.
    
 2. **EL Refinement operator**
 
     Overview of the different refinement steps depending on the concept type:
-- **Thing T**: Refined to direct sub-concepts and for each object property $r$ in the knowledge base $\exists r.$ T
-- **Atomic concepts** $C$: Refined to direct sub-concepts and $C \sqcap $ T 
+- **Thing T**: Refined to direct sub-concepts and for each object property $`r`$ in the knowledge base $`\exists r.`$ T
+- **Atomic concepts** $`C`$: Refined to direct sub-concepts and $`C \sqcap `$ T 
 - **Existential restrictions**: Refined by refining the filler (one new refinement for each refinement of the filler)
 - **Intersection**: Refine the operands and add one new refinement for each refinement of the operands
   Refinement steps are pretty similar to the ones in this paper: https://jens-lehmann.org/files/2007/hybrid_learning.pdf
