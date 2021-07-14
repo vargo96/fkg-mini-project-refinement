@@ -94,7 +94,5 @@ optional arguments:
   --steps STEPS         Amount of refinement steps of the algorithm.
   --develop_mode        Set train mode: Split the given learning problems in
                         train and test and evaluate the algorithm.
-  --test_ratio TEST_RATIO
-                        Ratio of the test split in develop mode.
-  --output_file OUTPUT_FILE
+   --output_file OUTPUT_FILE
 ```
