@@ -10,7 +10,7 @@
 ## Motivation
 As often done in node classification on knowledge graphs we use the positive and negative
 examples to learn concepts in description logics. This way the classifications should not only
-be accurate but also explainable by looking at the concept. Atleast for domain experts depending
+be accurate but also explainable by looking at the concept, atleast for domain experts depending
 on the ontology. There are also approaches to verbalize description logics to natural language.
 Accordingly, we use a refinement operator for the description logic EL (similar as in the last exercise)
 and combine this with a simple greedy approach that traverses the search space. EL only consists of top,
@@ -45,7 +45,7 @@ Our refinement approach consists of the four parts and these are as follows:
 
     In the first iteration we go through all the refinements of **Thing** and for each we do a refinement step and only keep the best refinement of the resulting set. E.g. we would take Atom and do one refinement step and keep the best one, then we would do the same for Bond etc. Afterward, this process continues in the next iteration with the refinements that were found in the first iteration and so on.
 
-    Best here means which refinement has the highest F1-Score on the train set and the length of a concept is used as a tiebreaker.
+    Here best means which refinement has the highest F1-Score on the train set and the length of a concept is used as a tiebreaker.
 
 
 4. **Predict and write the result file:**
