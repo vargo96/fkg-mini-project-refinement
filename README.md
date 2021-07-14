@@ -10,7 +10,7 @@
 ## Motivation
 As often done in node classification on knowledge graphs we use the positive and negative
 examples to learn concepts in description logics. This way the classifications should not only
-be accurate but also explainable by looking at the concept. Atleast for domain experts depending
+be accurate but also explainable by looking at the concept, atleast for domain experts depending
 on the ontology. There are even approaches to verbalize description logics to natural language.
 Accordingly, we use a refinement operator for the description logic EL (similar as in the last exercise)
 and combine this with a simple greedy approach that traverses the search space. EL only consists of top,
@@ -33,7 +33,7 @@ Our refinement approach consists of the four steps and these are as follows:
 - **Thing T**: Refined to direct sub-concepts and for each object property <img src="https://render.githubusercontent.com/render/math?math=r"> in the knowledge base <img src="https://render.githubusercontent.com/render/math?math=\exists r.">T 
 - **Atomic concepts** <img src="https://render.githubusercontent.com/render/math?math=C">: Refined to direct sub-concepts and <img src="https://render.githubusercontent.com/render/math?math=C \sqcap ">T 
 - **Existential restrictions**: Refined by refining the filler (one new refinement for each refinement of the filler)
-- **Intersection**: Refine the operands and add one new refinement for each refinement of the operands
+- **Intersection**: Refine the operands and add one new refinement for each refinement of the operands.
   Refinement steps are pretty similar to the ones in this paper: [Hybrid Learning of Ontology Classes](https://jens-lehmann.org/files/2007/hybrid_learning.pdf)
 
 
@@ -44,13 +44,12 @@ Our refinement approach consists of the four steps and these are as follows:
 
     In the first iteration we go through all the refinements of **Thing** and for each we do a refinement step and only keep the best refinement of the resulting set. E.g. we would take Atom do one refinement step and keep the best one, then we would do the same for Bond etc. Afterward, this process continues in the next iteration with the refinements that were found in the first step and so on.
 
-    Best here means which refinement has the highest F1-Score on the train set and the length of a concept is used as a tiebreaker.
+    Here best means which refinement has the highest F1-Score on the train set and the length of a concept is used as a tiebreaker.
 
 
 4. **Predict and write the result file:**
 
-   The remaining test individuals are then classified with the best concept we found during training of our algorithm (whether the concept en
-   tails an individual or not). 
+   The remaining test individuals are then classified with the best concept we found during training of our algorithm (whether the concept entails an individual or not). 
    We receive the predictions of all the individuals for each learning problem and the prediction results are written in a single turtle [result](result.ttl) file.
 
 
